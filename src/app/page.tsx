@@ -121,7 +121,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ textAlign: 'center', pt: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '3rem' }}>
+          <div style={{ textAlign: 'center', paddingTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
             <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>
               © 2026 Hunter 350 Community. Not affiliated with Royal Enfield Ltd.
             </p>
