@@ -107,7 +107,7 @@ const ModificationsPage = () => {
                             {mods.map(mod => (
                                 <div key={mod.id} className="glass" style={{ overflow: 'hidden' }}>
                                     <div style={{ height: '200px' }}>
-                                        <img src={mod.images[0]} alt={mod.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={mod.src || (mod.images && mod.images[0]) || '/images/hero.jpeg'} alt={mod.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
                                     <div style={{ padding: '1.5rem' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>

@@ -197,7 +197,7 @@ const GalleryPage = () => {
                                     overflow: 'hidden',
                                     cursor: 'pointer'
                                 }}>
-                                    <img src={img.src} alt={img.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
+                                    <img src={img.src || (img.images && img.images[0])} alt={img.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
                                     
                                     {isManageMode && (
                                         <div style={{ position: 'absolute', top: '1rem', right: '1rem', display: 'flex', gap: '0.5rem', zIndex: 10 }}>

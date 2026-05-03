@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const PostSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true },
+  description: { type: String, default: 'No description' },
+  src: { type: String }, // Direct link for single images
   images: [{ type: String }],
   type: { type: String, enum: ['modification', 'ride_story', 'gallery'], required: true },
   category: { type: String, default: 'General' },
