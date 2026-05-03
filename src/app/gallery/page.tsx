@@ -81,35 +81,46 @@ const GalleryPage = () => {
 
     const handleImportImage = async (event: any) => {
         const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('filename', file.name);
+        if (!file) return;
 
-            try {
-                const res = await fetch('/api/upload', {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('filename', file.name);
+
+        try {
+            setLoading(true);
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            
+            if (data.success) {
+                // Now create the database entry
+                const postRes = await fetch('/api/posts', {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: file.name.split('.')[0],
+                        src: data.path,
+                        category: activeTab === 'All' ? 'Stock' : activeTab,
+                        type: 'gallery'
+                    })
                 });
-                const data = await res.json();
-                if (data.success) {
-                    alert(`Imported ${file.name} successfully!`);
-                    // Add to gallery via API
-                    await fetch('/api/posts', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            title: file.name.split('.')[0],
-                            src: data.path,
-                            category: 'Stock',
-                            type: 'gallery'
-                        })
-                    });
-                    fetchImages();
+
+                if (postRes.ok) {
+                    alert(`✅ ${file.name} imported and saved to gallery!`);
+                } else {
+                    alert(`⚠️ File uploaded to folder, but database failed to save. The image may not appear after refresh.`);
                 }
-            } catch (err) {
-                alert("Upload failed. Make sure you are running locally.");
+                await fetchImages();
+            } else {
+                alert(`❌ Upload failed: ${data.error}`);
             }
+        } catch (err: any) {
+            alert(`❌ Error during upload: ${err.message}`);
+        } finally {
+            setLoading(false);
         }
     };
 

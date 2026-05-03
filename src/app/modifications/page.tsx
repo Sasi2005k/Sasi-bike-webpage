@@ -23,37 +23,47 @@ const ModificationsPage = () => {
 
     const handleImportImage = async (event: any) => {
         const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('filename', file.name);
+        if (!file) return;
 
-            try {
-                const res = await fetch('/api/upload', {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('filename', file.name);
+
+        try {
+            setLoading(true);
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            
+            if (data.success) {
+                const postRes = await fetch('/api/posts', {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: file.name.split('.')[0],
+                        src: data.path,
+                        category: 'Performance',
+                        type: 'modification',
+                        cost: '100',
+                        user: 'Sasi Krish'
+                    })
                 });
-                const data = await res.json();
-                if (data.success) {
-                    alert(`Imported ${file.name} successfully!`);
-                    // Create new mod post
-                    await fetch('/api/posts', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            title: file.name.split('.')[0],
-                            src: data.path,
-                            category: 'Performance',
-                            type: 'modification',
-                            cost: '100',
-                            user: 'Sasi Krish'
-                        })
-                    });
-                    window.location.reload(); // Refresh to see new mod
+
+                if (postRes.ok) {
+                    alert(`✅ Mod photo imported successfully!`);
+                } else {
+                    alert(`⚠️ File uploaded, but database error occurred.`);
                 }
-            } catch (err) {
-                alert("Upload failed. Make sure you are running locally.");
+                window.location.reload();
+            } else {
+                alert(`❌ Upload failed: ${data.error}`);
             }
+        } catch (err: any) {
+            alert(`❌ Error: ${err.message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
