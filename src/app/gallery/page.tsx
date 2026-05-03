@@ -70,30 +70,46 @@ const GalleryPage = () => {
         }
     };
 
-    const handleExport = () => {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(images));
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "hunter350_gallery.json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
+    const handleExportImage = (src: string, filename: string) => {
+        const link = document.createElement('a');
+        link.href = src;
+        link.download = filename || 'bike_image.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
-    const handleImport = (event: any) => {
+    const handleImportImage = async (event: any) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    setImages(imported);
-                    alert("Gallery imported successfully!");
-                } catch (err) {
-                    alert("Invalid JSON file");
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name);
+
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Imported ${file.name} successfully!`);
+                    // Add to gallery via API
+                    await fetch('/api/posts', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            title: file.name.split('.')[0],
+                            src: data.path,
+                            category: 'Stock',
+                            type: 'gallery'
+                        })
+                    });
+                    fetchImages();
                 }
-            };
-            reader.readAsText(file);
+            } catch (err) {
+                alert("Upload failed. Make sure you are running locally.");
+            }
         }
     };
 
@@ -119,10 +135,9 @@ const GalleryPage = () => {
                         {isManageMode && (
                             <>
                                 <button onClick={handleAddImage} style={{ backgroundColor: 'var(--accent)', color: '#000', fontWeight: 'bold', padding: '0.5rem 1.5rem', borderRadius: '4px' }}>+ ADD BIKE</button>
-                                <button onClick={handleExport} style={{ border: '1px solid var(--accent)', color: 'var(--accent)', padding: '0.5rem 1rem', borderRadius: '4px' }}>EXPORT JSON</button>
-                                <label style={{ border: '1px solid #fff', color: '#fff', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
-                                    IMPORT JSON
-                                    <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+                                <label style={{ border: '1px solid var(--accent)', color: 'var(--accent)', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
+                                    IMPORT JPEG/PNG
+                                    <input type="file" accept="image/*" onChange={handleImportImage} style={{ display: 'none' }} />
                                 </label>
                             </>
                         )}
@@ -174,12 +189,20 @@ const GalleryPage = () => {
                                     <img src={img.src} alt={img.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
                                     
                                     {isManageMode && (
-                                        <button 
-                                            onClick={(e) => { e.stopPropagation(); handleDelete(img._id || img.id); }}
-                                            style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,0,0,0.8)', color: '#fff', border: 'none', borderRadius: '50%', width: '30px', height: '30px', zIndex: 10 }}
-                                        >
-                                            ✕
-                                        </button>
+                                        <div style={{ position: 'absolute', top: '1rem', right: '1rem', display: 'flex', gap: '0.5rem', zIndex: 10 }}>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); handleExportImage(img.src, img.title); }}
+                                                style={{ background: 'var(--accent)', color: '#000', border: 'none', borderRadius: '4px', padding: '0.2rem 0.5rem', fontSize: '0.7rem', fontWeight: 'bold' }}
+                                            >
+                                                EXPORT
+                                            </button>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(img._id || img.id); }}
+                                                style={{ background: 'rgba(255,0,0,0.8)', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
                                     )}
 
                                     <div className="overlay" style={{
