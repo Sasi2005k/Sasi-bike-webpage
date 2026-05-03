@@ -103,7 +103,7 @@ const ModificationsPage = () => {
                     {loading ? (
                         <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Loading modifications...</p>
                     ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+                        <div className="grid-mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                             {mods.map((mod, idx) => (
                                 <div key={mod._id || mod.id || idx} className="glass" style={{ overflow: 'hidden' }}>
                                     <div style={{ height: '200px' }}>

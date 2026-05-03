@@ -26,7 +26,7 @@ const Navbar = () => {
                     HUNTER <span style={{ color: '#fff' }}>350</span>
                 </Link>
                 
-                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                <div className="nav-links" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                     <Link href="/gallery" className="nav-link">Gallery</Link>
                     <Link href="/modifications" className="nav-link">Modifications</Link>
                     <Link href="/journey" className="nav-link">Journey</Link>

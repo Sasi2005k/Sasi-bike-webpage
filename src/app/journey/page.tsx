@@ -93,7 +93,7 @@ const JourneyPage = () => {
                         )}
 
                         {journeys.map((journey, idx) => (
-                            <div key={journey.id} className="reveal-animation" style={{ 
+                            <div key={journey.id} className="reveal-animation grid-mobile-stack" style={{ 
                                 display: 'grid', 
                                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
                                 gap: '6rem',
@@ -101,7 +101,7 @@ const JourneyPage = () => {
                             }}>
                                 <div style={{ position: 'relative' }}>
                                     <div className="image-float" style={{ 
-                                        height: '500px', 
+                                        height: 'clamp(300px, 50vh, 500px)', 
                                         borderRadius: '30px', 
                                         overflow: 'hidden', 
                                         boxShadow: '0 40px 80px rgba(0,0,0,0.6)',

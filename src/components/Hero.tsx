@@ -33,7 +33,7 @@ const Hero = () => {
 
             <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '900px' }}>
                 <h1 className="motion-header" style={{ 
-                    fontSize: '6rem', 
+                    fontSize: 'clamp(3rem, 10vw, 6rem)', 
                     fontWeight: '900', 
                     lineHeight: '1', 
                     marginBottom: '2rem',
