@@ -90,14 +90,29 @@ button {
   animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Live Motion Header */
-@keyframes float {
-  0% { transform: translateY(0px); text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-  50% { transform: translateY(-10px); text-shadow: 0 20px 30px rgba(212, 175, 55, 0.2); }
-  100% { transform: translateY(0px); text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+/* Global Liquid Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: liquidShift 20s ease-in-out infinite alternate;
 }
 
-.motion-header {
-  animation: float 4s ease-in-out infinite;
-  display: inline-block;
+@keyframes liquidShift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.5) translate(5%, 5%); }
+}
+
+/* Page Entrance */
+main {
+  animation: pageIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
