@@ -151,8 +151,26 @@ main {
   animation: pageIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Animation Optimizations */
 @media (max-width: 768px) {
+  body::before {
+    animation-duration: 10s; /* Faster movement for smaller screens */
+  }
+  
+  .image-float {
+    animation: floatMobile 4s ease-in-out infinite;
+  }
+  
+  @keyframes floatMobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Ensure smooth scrolling with animations */
+  .reveal-animation {
+    animation-duration: 0.8s !important;
+  }
+}
   .container {
     padding: 0 1.5rem;
   }
