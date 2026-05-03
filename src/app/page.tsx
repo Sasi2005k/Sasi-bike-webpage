@@ -50,16 +50,37 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer style={{ padding: '4rem 0', borderTop: '1px solid var(--border)', background: '#050505' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 style={{ color: 'var(--accent)', marginBottom: '1rem' }}>HUNTER 350 COMMUNITY</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>A platform for enthusiasts, by enthusiasts.</p>
-          <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', opacity: '0.6' }}>
-            <span>Instagram</span>
-            <span>YouTube</span>
-            <span>Twitter</span>
+      <footer style={{ padding: '6rem 0 4rem', borderTop: '1px solid var(--border)', background: '#050505' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '4rem', marginBottom: '4rem' }}>
+            <div style={{ textAlign: 'left' }}>
+              <h2 style={{ color: 'var(--accent)', marginBottom: '1.5rem', fontSize: '1.5rem' }}>HUNTER 350 COMMUNITY</h2>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                The ultimate destination for Royal Enfield Hunter 350 enthusiasts to share, mod, and ride.
+              </p>
+            </div>
+            
+            <div style={{ textAlign: 'left' }}>
+              <h3 style={{ marginBottom: '1.5rem', fontSize: '1.1rem', textTransform: 'uppercase' }}>Join the Pack</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <a href="https://instagram.com/your_handle" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <span style={{ color: 'var(--accent)' }}></span> Instagram
+                </a>
+                <a href="https://wa.me/your_number" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <span style={{ color: '#25D366' }}></span> WhatsApp Group
+                </a>
+                <a href="mailto:your.email@gmail.com" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                  <span style={{ color: 'var(--accent)' }}></span> Contact via Gmail
+                </a>
+              </div>
+            </div>
           </div>
-          <p style={{ marginTop: '3rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>© 2026 Hunter 350 Community. Not affiliated with Royal Enfield Ltd.</p>
+          
+          <div style={{ textAlign: 'center', pt: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '3rem' }}>
+            <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)' }}>
+              © 2026 Hunter 350 Community. Not affiliated with Royal Enfield Ltd.
+            </p>
+          </div>
         </div>
       </footer>
     </main>
