@@ -49,6 +49,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Founder Section */}
+      <section style={{ padding: '8rem 0', background: 'linear-gradient(to bottom, #0a0a0a, #050505)' }}>
+        <div className="container">
+          <div className="glass" style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '4rem', 
+            padding: '4rem',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{ 
+              width: '300px', 
+              height: '300px', 
+              borderRadius: '50%', 
+              overflow: 'hidden', 
+              border: '4px solid var(--accent)',
+              boxShadow: '0 0 30px rgba(212, 175, 55, 0.2)',
+              flexShrink: 0
+            }}>
+              <img src="/images/profile.png" alt="Sasi Krish" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ flex: 1, minWidth: '300px' }}>
+              <span style={{ color: 'var(--accent)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px' }}>Meet the Founder</span>
+              <h2 style={{ fontSize: '3.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>Sasi <span style={{ color: 'var(--accent)' }}>Krish</span></h2>
+              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.8', fontStyle: 'italic' }}>
+                "Hunter 350 Enthusiast & Community Founder. Dedicated to the roar of the single cylinder and the spirit of the urban wanderer."
+              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem' }}>
+                 <div style={{ textAlign: 'center' }}>
+                    <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent)' }}>500+</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Members</p>
+                 </div>
+                 <div style={{ textAlign: 'center' }}>
+                    <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent)' }}>120+</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Mods Shared</p>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer style={{ padding: '6rem 0 4rem', borderTop: '1px solid var(--border)', background: '#050505' }}>
         <div className="container">
