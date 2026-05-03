@@ -63,7 +63,7 @@ export default function Home() {
             <div style={{ textAlign: 'left' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1.1rem', textTransform: 'uppercase' }}>Join the Pack</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <a href="https://instagram.com/your_handle" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                <a href="https://www.instagram.com/itzz._.krish350?igsh=cm5yZGRsYjBnNWkw" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                   <span style={{ color: 'var(--accent)' }}></span> Instagram
                 </a>
                 <a href="https://wa.me/your_number" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
