@@ -90,29 +90,68 @@ button {
   animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Global Liquid Background */
+/* Premium Global Aesthetics */
+:root {
+  --bg-gradient: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%);
+  --accent-glow: rgba(212, 175, 55, 0.15);
+}
+
+body {
+  background: #050505;
+  overflow-x: hidden;
+}
+
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, var(--accent-glow) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
   pointer-events: none;
   z-index: -1;
-  animation: liquidShift 20s ease-in-out infinite alternate;
+  animation: meshMove 20s ease-in-out infinite alternate;
 }
 
-@keyframes liquidShift {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.5) translate(5%, 5%); }
+/* Film Grain Texture */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1000;
+  filter: contrast(150%) brightness(100%);
+}
+
+@keyframes meshMove {
+  0% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-5%, 5%) scale(1.1); }
+  100% { transform: translate(5%, -5%) scale(1.05); }
+}
+
+/* Enhanced Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--accent) !important;
+  transform: translateY(-5px);
 }
 
 /* Page Entrance */
 main {
-  animation: pageIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  from { opacity: 0; transform: scale(0.98); filter: blur(10px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
 }
