@@ -66,10 +66,10 @@ export default function Home() {
                 <a href="https://www.instagram.com/itzz._.krish350?igsh=cm5yZGRsYjBnNWkw" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                   <span style={{ color: 'var(--accent)' }}></span> Instagram
                 </a>
-                <a href="https://wa.me/your_number" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                <a href="https://wa.me/919345846647" target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                   <span style={{ color: '#25D366' }}></span> WhatsApp Group
                 </a>
-                <a href="mailto:your.email@gmail.com" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                <a href="mailto:sasi93458466@gmail.com" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                   <span style={{ color: 'var(--accent)' }}></span> Contact via Gmail
                 </a>
               </div>
