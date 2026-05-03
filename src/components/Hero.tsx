@@ -51,27 +51,27 @@ const Hero = () => {
                 
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }} className="animate-fade-in">
                     <Link href="/gallery" style={{
-                        padding: '1rem 2.5rem',
+                        padding: '1.2rem 3rem',
                         backgroundColor: 'var(--accent)',
+                        backgroundImage: 'linear-gradient(45deg, var(--accent), #ffcc33)',
                         color: '#000',
-                        fontWeight: '700',
-                        borderRadius: '4px',
+                        fontWeight: '800',
+                        borderRadius: '50px',
                         fontSize: '1rem',
-                        transition: 'transform 0.3s ease',
-                        display: 'inline-block'
+                        transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        boxShadow: '0 10px 20px rgba(212, 175, 55, 0.3)',
+                        display: 'inline-block',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                    }} onMouseOver={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.05) translateY(-5px)';
+                        e.currentTarget.style.boxShadow = '0 15px 30px rgba(212, 175, 55, 0.5)';
+                    }}
+                       onMouseOut={(e) => {
+                        e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 10px 20px rgba(212, 175, 55, 0.3)';
                     }}>
-                        EXPLORE HUNTER
-                    </Link>
-                    <Link href="/modifications" style={{
-                        padding: '1rem 2.5rem',
-                        border: '1px solid #fff',
-                        color: '#fff',
-                        fontWeight: '700',
-                        borderRadius: '4px',
-                        fontSize: '1rem',
-                        display: 'inline-block'
-                    }}>
-                        JOIN COMMUNITY
+                        EXPLORE THE HUNTER
                     </Link>
                 </div>
             </div>

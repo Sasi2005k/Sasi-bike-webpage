@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Specs from '@/components/Specs';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -20,31 +21,34 @@ export default function Home() {
             <button style={{ color: 'var(--accent)', fontWeight: '600', borderBottom: '1px solid var(--accent)' }}>VIEW ALL</button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-            <div style={{ height: '500px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
-              <img src="/images/modified.png" alt="Modified Hunter 350" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="reveal-animation" />
-              <div style={{ 
-                position: 'absolute', 
-                bottom: 0, 
-                left: 0, 
-                width: '100%', 
-                padding: '2rem', 
-                backgroundImage: 'url("/images/hero.jpeg")',
-                background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' 
-              }}>
-                <h3>The Midnight Scrambler</h3>
-                <p style={{ color: 'var(--accent)' }}>Cost: $450 | Category: Performance</p>
+          <div style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+            <img src="/images/modified.png" alt="Modified Hunter 350" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="reveal-animation" />
+            <div style={{ 
+              position: 'absolute', 
+              bottom: 0, 
+              left: 0, 
+              width: '100%', 
+              padding: '4rem', 
+              background: 'linear-gradient(to top, rgba(0,0,0,1), transparent)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}>
+              <span style={{ color: 'var(--accent)', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem' }}>Featured Build</span>
+              <h3 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>The Midnight Scrambler</h3>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', maxWidth: '600px', marginBottom: '2rem' }}>
+                A custom performance build featuring a high-flow exhaust, remapped ECU, and aggressive scrambler ergonomics.
+              </p>
+              <div>
+                 <Link href="/modifications" style={{ 
+                    padding: '1rem 2.5rem', 
+                    backgroundColor: 'var(--accent)', 
+                    color: '#000', 
+                    borderRadius: '50px', 
+                    fontWeight: 'bold',
+                    boxShadow: '0 10px 20px rgba(212, 175, 55, 0.3)'
+                 }}>VIEW SPECIFICATIONS</Link>
               </div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '2rem' }}>
-               <div className="glass" style={{ padding: '2rem' }}>
-                  <h3>Latest Discussion</h3>
-                  <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>"What is the best exhaust for better low-end torque on the Hunter 350?"</p>
-                  <button style={{ marginTop: '1.5rem', color: 'var(--accent)' }}>Join Debate →</button>
-               </div>
-               <div style={{ borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="/images/ride.jpeg" alt="Ride Story" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="reveal-animation" />
-               </div>
             </div>
           </div>
         </div>

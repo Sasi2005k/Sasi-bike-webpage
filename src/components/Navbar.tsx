@@ -29,8 +29,6 @@ const Navbar = () => {
                 <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                     <Link href="/gallery" className="nav-link">Gallery</Link>
                     <Link href="/modifications" className="nav-link">Modifications</Link>
-                    <Link href="/community" className="nav-link">Community</Link>
-                    <Link href="/stories" className="nav-link">Stories</Link>
                     <Link href="/auth" style={{ 
                         padding: '0.5rem 1.5rem', 
                         borderRadius: '25px', 
