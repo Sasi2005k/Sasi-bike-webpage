@@ -89,3 +89,15 @@ button {
 .reveal-animation {
   animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Live Motion Header */
+@keyframes float {
+  0% { transform: translateY(0px); text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+  50% { transform: translateY(-10px); text-shadow: 0 20px 30px rgba(212, 175, 55, 0.2); }
+  100% { transform: translateY(0px); text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+}
+
+.motion-header {
+  animation: float 4s ease-in-out infinite;
+  display: inline-block;
+}

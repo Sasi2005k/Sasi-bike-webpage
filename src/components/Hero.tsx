@@ -31,23 +31,27 @@ const Hero = () => {
                 }}></div>
             </div>
 
-            <div className="container" style={{ textAlign: 'center', zIndex: 1 }}>
-                <h1 style={{ 
-                    fontSize: 'clamp(3rem, 10vw, 6rem)', 
-                    lineHeight: '1.1',
-                    marginBottom: '1rem',
-                    textTransform: 'uppercase'
-                }} className="animate-fade-in">
-                    A Shot of <br />
-                    <span style={{ color: 'var(--accent)' }}>Motorcycling</span>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '900px' }}>
+                <h1 className="motion-header" style={{ 
+                    fontSize: '6rem', 
+                    fontWeight: '900', 
+                    lineHeight: '1', 
+                    marginBottom: '2rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '-2px',
+                }}>
+                    IT'S <span style={{ color: 'var(--accent)' }}>SASI KRISH</span> <br/> 
+                    HUNTER <span style={{ fontStyle: 'italic', color: '#fff' }}>350</span>
                 </h1>
-                <p style={{ 
+                
+                <p className="animate-fade-in" style={{ 
                     fontSize: '1.2rem', 
-                    color: 'var(--text-muted)', 
-                    maxWidth: '600px', 
-                    margin: '0 auto 2rem'
-                }} className="animate-fade-in">
-                    The Royal Enfield Hunter 350. Built for the urban sprawl, designed for the ride of your life.
+                    color: 'rgba(255,255,255,0.7)', 
+                    marginBottom: '3rem',
+                    letterSpacing: '4px',
+                    textTransform: 'uppercase'
+                }}>
+                    Engineering Agility | Defining Style
                 </p>
                 
                 <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }} className="animate-fade-in">
