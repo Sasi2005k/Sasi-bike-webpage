@@ -104,8 +104,8 @@ const ModificationsPage = () => {
                         <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Loading modifications...</p>
                     ) : (
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
-                            {mods.map(mod => (
-                                <div key={mod.id} className="glass" style={{ overflow: 'hidden' }}>
+                            {mods.map((mod, idx) => (
+                                <div key={mod._id || mod.id || idx} className="glass" style={{ overflow: 'hidden' }}>
                                     <div style={{ height: '200px' }}>
                                         <img src={mod.src || (mod.images && mod.images[0]) || '/images/hero.jpeg'} alt={mod.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     </div>
