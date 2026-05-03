@@ -4,7 +4,11 @@ import Post from '@/models/Post';
 
 export async function GET(request: Request) {
     try {
-        await dbConnect();
+        const conn = await dbConnect();
+        if (!conn) {
+            return NextResponse.json([]); // Return empty array if no DB connection
+        }
+
         const { searchParams } = new URL(request.url);
         const type = searchParams.get('type');
         
@@ -12,9 +16,10 @@ export async function GET(request: Request) {
         if (type) query.type = type;
 
         const posts = await Post.find(query).sort({ createdAt: -1 });
-        return NextResponse.json(posts);
+        return NextResponse.json(Array.isArray(posts) ? posts : []);
     } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        console.error("API Error:", error);
+        return NextResponse.json([]); // Return empty array on error to prevent UI crash
     }
 }
 
