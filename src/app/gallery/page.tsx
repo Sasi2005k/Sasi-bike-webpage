@@ -18,18 +18,25 @@ const GalleryPage = () => {
             setLoading(true);
             const res = await fetch('/api/posts?type=gallery');
             const data = await res.json();
-            // If DB is empty, use initial placeholders
-            if (data.length === 0) {
-                setImages([
-                    { id: '1', src: '/images/hero.png', category: 'Stock', title: 'Factory Fresh', type: 'gallery' },
-                    { id: '2', src: '/images/modified.png', category: 'Modified', title: 'Dark Edition', type: 'gallery' },
-                    { id: '3', src: '/images/ride.png', category: 'Rides', title: 'Mountain Escape', type: 'gallery' },
-                ]);
+            
+            // Safety check: Ensure data is an array
+            if (Array.isArray(data)) {
+                if (data.length === 0) {
+                    setImages([
+                        { id: '1', src: '/images/hero.png', category: 'Stock', title: 'Factory Fresh', type: 'gallery' },
+                        { id: '2', src: '/images/modified.png', category: 'Modified', title: 'Dark Edition', type: 'gallery' },
+                        { id: '3', src: '/images/ride.png', category: 'Rides', title: 'Mountain Escape', type: 'gallery' },
+                    ]);
+                } else {
+                    setImages(data);
+                }
             } else {
-                setImages(data);
+                console.error("API did not return an array:", data);
+                setImages([]); // Reset to empty array if error
             }
         } catch (err) {
             console.error(err);
+            setImages([]);
         } finally {
             setLoading(false);
         }
@@ -90,9 +97,9 @@ const GalleryPage = () => {
         }
     };
 
-    const filteredImages = activeTab === 'All' 
+    const filteredImages = (Array.isArray(images) ? (activeTab === 'All' 
         ? images 
-        : images.filter(img => img.category === activeTab);
+        : images.filter(img => img.category === activeTab)) : []);
 
     return (
         <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
