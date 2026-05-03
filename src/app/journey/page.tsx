@@ -1,9 +1,10 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const JourneyPage = () => {
-    const journeys = [
+    const [journeys, setJourneys] = useState([
         {
             id: 'munnar-2026',
             title: 'Misty Peaks of Munnar',
@@ -20,7 +21,21 @@ const JourneyPage = () => {
             spots: ['Maravanthe Beach', 'Murudeshwar Temple', 'Gokarna Cliff'],
             features: { distance: '320km', terrain: 'Coastal/Flat', difficulty: 'Easy' }
         }
-    ];
+    ]);
+
+    const [editId, setEditId] = useState<string | null>(null);
+    const [editForm, setEditForm] = useState<any>(null);
+
+    const startEdit = (journey: any) => {
+        setEditId(journey.id);
+        setEditForm({ ...journey });
+    };
+
+    const saveEdit = () => {
+        setJourneys(journeys.map(j => j.id === editId ? editForm : j));
+        setEditId(null);
+        setEditForm(null);
+    };
 
     return (
         <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
@@ -54,11 +69,25 @@ const JourneyPage = () => {
                                 </div>
                                 
                                 <div style={{ order: idx % 2 === 0 ? 2 : 1 }}>
-                                    <span style={{ color: 'var(--accent)', fontWeight: 'bold', letterSpacing: '2px' }}>{journey.features.distance} JOURNEY</span>
-                                    <h2 style={{ fontSize: '3rem', margin: '1rem 0' }}>{journey.title}</h2>
-                                    <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8', marginBottom: '2rem' }}>
-                                        {journey.experience}
-                                    </p>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ color: 'var(--accent)', fontWeight: 'bold', letterSpacing: '2px' }}>{journey.features.distance} JOURNEY</span>
+                                        <button onClick={() => startEdit(journey)} style={{ color: 'var(--accent)', fontSize: '0.8rem', border: '1px solid var(--accent)', padding: '0.2rem 0.6rem', borderRadius: '4px' }}>EDIT LOG</button>
+                                    </div>
+
+                                    {editId === journey.id ? (
+                                        <div className="glass" style={{ padding: '2rem', marginTop: '1rem' }}>
+                                            <input style={{ width: '100%', background: 'transparent', color: '#fff', fontSize: '1.5rem', border: 'none', borderBottom: '1px solid var(--accent)', marginBottom: '1rem' }} value={editForm.title} onChange={e => setEditForm({...editForm, title: e.target.value})} />
+                                            <textarea style={{ width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.7)', border: '1px solid var(--border)', padding: '1rem', minHeight: '100px', marginBottom: '1rem' }} value={editForm.experience} onChange={e => setEditForm({...editForm, experience: e.target.value})} />
+                                            <button onClick={saveEdit} style={{ backgroundColor: 'var(--accent)', color: '#000', padding: '0.5rem 1.5rem', fontWeight: 'bold', borderRadius: '4px' }}>SAVE CHANGES</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <h2 style={{ fontSize: '3rem', margin: '1rem 0' }}>{journey.title}</h2>
+                                            <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8', marginBottom: '2rem' }}>
+                                                {journey.experience}
+                                            </p>
+                                        </>
+                                    )}
                                     
                                     <div style={{ marginBottom: '2.5rem' }}>
                                         <h4 style={{ color: 'var(--accent)', marginBottom: '1rem', textTransform: 'uppercase' }}>Must Visit Spots:</h4>
@@ -78,15 +107,8 @@ const JourneyPage = () => {
                                             color: 'var(--accent)', 
                                             borderRadius: '50px',
                                             fontWeight: 'bold',
-                                            transition: 'all 0.3s ease'
-                                        }}
-                                        onMouseOver={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'var(--accent)';
-                                            e.currentTarget.style.color = '#000';
-                                        }}
-                                        onMouseOut={(e) => {
-                                            e.currentTarget.style.backgroundColor = 'transparent';
-                                            e.currentTarget.style.color = 'var(--accent)';
+                                            transition: 'all 0.3s ease',
+                                            display: 'inline-block'
                                         }}
                                     >
                                         FULL RIDE LOG ↗

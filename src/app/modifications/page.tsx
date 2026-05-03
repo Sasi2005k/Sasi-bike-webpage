@@ -21,6 +21,42 @@ const ModificationsPage = () => {
         fetchMods();
     }, []);
 
+    const handleImportImage = async (event: any) => {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name);
+
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Imported ${file.name} successfully!`);
+                    // Create new mod post
+                    await fetch('/api/posts', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            title: file.name.split('.')[0],
+                            src: data.path,
+                            category: 'Performance',
+                            type: 'modification',
+                            cost: '100',
+                            user: 'Sasi Krish'
+                        })
+                    });
+                    window.location.reload(); // Refresh to see new mod
+                }
+            } catch (err) {
+                alert("Upload failed. Make sure you are running locally.");
+            }
+        }
+    };
+
     return (
         <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
             <Navbar />
@@ -29,15 +65,29 @@ const ModificationsPage = () => {
                 <div className="container">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
                         <h1 style={{ fontSize: '3rem' }}>Modification <span style={{ color: 'var(--accent)' }}>Vault</span></h1>
-                        <button style={{ 
-                            padding: '1rem 2rem', 
-                            backgroundColor: 'var(--accent)', 
-                            color: '#000', 
-                            fontWeight: '700', 
-                            borderRadius: '4px' 
-                        }}>
-                            + POST YOUR MOD
-                        </button>
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                            <label style={{ 
+                                padding: '1rem 2rem', 
+                                backgroundColor: 'transparent', 
+                                border: '1px solid var(--accent)',
+                                color: 'var(--accent)', 
+                                fontWeight: '700', 
+                                borderRadius: '4px',
+                                cursor: 'pointer'
+                            }}>
+                                IMPORT JPEG/PNG
+                                <input type="file" accept="image/*" onChange={handleImportImage} style={{ display: 'none' }} />
+                            </label>
+                            <button style={{ 
+                                padding: '1rem 2rem', 
+                                backgroundColor: 'var(--accent)', 
+                                color: '#000', 
+                                fontWeight: '700', 
+                                borderRadius: '4px' 
+                            }}>
+                                + POST YOUR MOD
+                            </button>
+                        </div>
                     </div>
 
                     {loading ? (
