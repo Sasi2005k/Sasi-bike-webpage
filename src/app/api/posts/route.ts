@@ -47,30 +47,36 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+    let postData: any;
     try {
-        const data = await request.json();
+        postData = await request.json();
         const conn = await dbConnect();
 
         if (conn) {
             try {
-                const post = await Post.create(data);
+                const post = await Post.create(postData);
                 return NextResponse.json(post);
             } catch (dbErr) {
-                const localPost = await saveLocalPost(data);
+                const localPost = await saveLocalPost(postData);
                 return NextResponse.json(localPost);
             }
         } else {
-            const localPost = await saveLocalPost(data);
+            const localPost = await saveLocalPost(postData);
             return NextResponse.json(localPost);
         }
     } catch (error: any) {
-        console.error("POST Error, falling back to local:", error);
-        try {
-            const data = await request.json();
-            const localPost = await saveLocalPost(data);
-            return NextResponse.json(localPost);
-        } catch {
-            return NextResponse.json({ error: "Failed to save post" }, { status: 500 });
+        console.error("API POST Error:", error);
+        // If we already have the data, try one last local save
+        if (postData) {
+            try {
+                const localPost = await saveLocalPost(postData);
+                return NextResponse.json(localPost);
+            } catch (fallbackErr) {
+                return NextResponse.json({ 
+                    error: "Database and local storage both unavailable on this platform (Vercel). Please check MONGODB_URI." 
+                }, { status: 500 });
+            }
         }
+        return NextResponse.json({ error: "Invalid request data" }, { status: 400 });
     }
 }
