@@ -23,9 +23,9 @@ const GalleryPage = () => {
             if (Array.isArray(data)) {
                 if (data.length === 0) {
                     setImages([
-                        { id: '1', src: '/images/hero.png', category: 'Stock', title: 'Factory Fresh', type: 'gallery' },
+                        { id: '1', src: '/images/hero.jpeg', category: 'Stock', title: 'Factory Fresh', type: 'gallery' },
                         { id: '2', src: '/images/modified.png', category: 'Modified', title: 'Dark Edition', type: 'gallery' },
-                        { id: '3', src: '/images/ride.png', category: 'Rides', title: 'Mountain Escape', type: 'gallery' },
+                        { id: '3', src: '/images/ride.jpeg', category: 'Rides', title: 'Mountain Escape', type: 'gallery' },
                     ]);
                 } else {
                     setImages(data);

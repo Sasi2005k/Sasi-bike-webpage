@@ -22,13 +22,14 @@ export default function Home() {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
             <div style={{ height: '500px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
-              <img src="/images/modified.png" alt="Modified Hunter 350" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/images/modified.png" alt="Modified Hunter 350" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="reveal-animation" />
               <div style={{ 
                 position: 'absolute', 
                 bottom: 0, 
                 left: 0, 
                 width: '100%', 
                 padding: '2rem', 
+                backgroundImage: 'url("/images/hero.jpeg")',
                 background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' 
               }}>
                 <h3>The Midnight Scrambler</h3>
@@ -42,7 +43,7 @@ export default function Home() {
                   <button style={{ marginTop: '1.5rem', color: 'var(--accent)' }}>Join Debate →</button>
                </div>
                <div style={{ borderRadius: '12px', overflow: 'hidden' }}>
-                  <img src="/images/ride.png" alt="Ride Story" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src="/images/ride.jpeg" alt="Ride Story" style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="reveal-animation" />
                </div>
             </div>
           </div>

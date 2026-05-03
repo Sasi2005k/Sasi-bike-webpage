@@ -79,3 +79,13 @@ button {
 .animate-fade-in {
   animation: fadeIn 0.8s ease forwards;
 }
+
+/* Scroll Reveal Animation */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-animation {
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
