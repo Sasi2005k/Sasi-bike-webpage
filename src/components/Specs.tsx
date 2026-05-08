@@ -1,9 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Specs = () => {
-    const [clickedIndex, setClickedIndex] = useState<number | null>(null);
-
     const specifications = [
         { label: 'Engine', value: '349cc, Single Cylinder, Air-Oil Cooled' },
         { label: 'Max Torque', value: '27 Nm @ 4000 rpm' },
@@ -13,18 +11,19 @@ const Specs = () => {
         { label: 'Variants', value: 'Retro & Metro' }
     ];
 
-    const handleClick = (index: number) => {
-        setClickedIndex(index);
-        setTimeout(() => setClickedIndex(null), 200); // Reset after animation
-    };
-
     return (
         <section style={{ padding: '8rem 0', background: '#050505' }}>
             <div className="container">
-                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    style={{ textAlign: 'center', marginBottom: '4rem' }}
+                >
                     <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Pure <span style={{ color: 'var(--accent)' }}>Power</span></h2>
-                    <p style={{ color: 'var(--text-muted)' }}>Engineered for agility and style. Click to interact.</p>
-                </div>
+                    <p style={{ color: 'var(--text-muted)' }}>Engineered for agility and style. Tap to experience.</p>
+                </motion.div>
 
                 <div style={{ 
                     display: 'grid', 
@@ -32,48 +31,44 @@ const Specs = () => {
                     gap: '2rem' 
                 }}>
                     {specifications.map((spec, index) => (
-                        <div 
+                        <motion.div 
                             key={index} 
-                            onClick={() => handleClick(index)}
-                            className={`glass spec-card ${clickedIndex === index ? 'pop-effect' : ''}`} 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            whileHover={{ 
+                                scale: 1.05, 
+                                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                                borderColor: 'var(--accent)',
+                                y: -5
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            className="glass" 
                             style={{ 
                                 padding: '2.5rem', 
-                                transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                                 cursor: 'pointer',
-                                border: clickedIndex === index ? '1px solid var(--accent)' : '1px solid var(--border)'
+                                transition: 'border-color 0.3s ease'
                             }}
                         >
                             <h3 style={{ 
                                 fontSize: '0.9rem', 
-                                color: clickedIndex === index ? '#fff' : 'var(--accent)', 
+                                color: 'var(--accent)', 
                                 textTransform: 'uppercase', 
-                                marginBottom: '0.5rem',
-                                transition: 'color 0.2s'
+                                marginBottom: '0.5rem'
                             }}>
                                 {spec.label}
                             </h3>
                             <p style={{ 
                                 fontSize: '1.6rem', 
-                                fontWeight: '700',
-                                textShadow: clickedIndex === index ? '0 0 15px var(--accent)' : 'none',
-                                transition: 'all 0.2s'
+                                fontWeight: '700'
                             }}>
                                 {spec.value}
                             </p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-
-            <style jsx>{`
-                .spec-card:hover {
-                    background: rgba(255, 255, 255, 0.08);
-                    transform: translateY(-5px);
-                }
-                .pop-effect {
-                    transform: scale(0.95) !important;
-                }
-            `}</style>
         </section>
     );
 };

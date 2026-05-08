@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ModificationsPage = () => {
     const [mods, setMods] = useState<any[]>([]);
@@ -36,7 +37,7 @@ const ModificationsPage = () => {
                 body: formData
             });
             const data = await res.json();
-            
+
             if (data.success) {
                 const postRes = await fetch('/api/posts', {
                     method: 'POST',
@@ -70,59 +71,100 @@ const ModificationsPage = () => {
     return (
         <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
             <Navbar />
-            
+
             <section style={{ padding: '8rem 0' }}>
                 <div className="container">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="mod-header"
+                    >
                         <h1 style={{ fontSize: '3rem' }}>Modification <span style={{ color: 'var(--accent)' }}>Vault</span></h1>
-                        <div style={{ display: 'flex', gap: '1rem' }}>
-                            <label style={{ 
-                                padding: '1rem 2rem', 
-                                backgroundColor: 'transparent', 
-                                border: '1px solid var(--accent)',
-                                color: 'var(--accent)', 
-                                fontWeight: '700', 
-                                borderRadius: '4px',
-                                cursor: 'pointer'
-                            }}>
+                        <div className="mod-actions">
+                            <motion.label 
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{
+                                    padding: '1rem 2rem',
+                                    backgroundColor: 'transparent',
+                                    border: '1px solid var(--accent)',
+                                    color: 'var(--accent)',
+                                    fontWeight: '700',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    display: 'inline-block'
+                                }}
+                            >
                                 IMPORT JPEG/PNG
                                 <input type="file" accept="image/*" onChange={handleImportImage} style={{ display: 'none' }} />
-                            </label>
-                            <button style={{ 
-                                padding: '1rem 2rem', 
-                                backgroundColor: 'var(--accent)', 
-                                color: '#000', 
-                                fontWeight: '700', 
-                                borderRadius: '4px' 
-                            }}>
+                            </motion.label>
+                            <motion.button 
+                                whileHover={{ scale: 1.05, backgroundColor: 'var(--foreground)', color: 'var(--background)' }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{
+                                    padding: '1rem 2rem',
+                                    backgroundColor: 'var(--accent)',
+                                    color: '#000',
+                                    fontWeight: '700',
+                                    borderRadius: '4px',
+                                    transition: 'all 0.3s ease'
+                                }}
+                            >
                                 + POST YOUR MOD
-                            </button>
+                            </motion.button>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {loading ? (
-                        <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Loading modifications...</p>
-                    ) : (
-                        <div className="grid-mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
-                            {mods.map((mod, idx) => (
-                                <div key={mod._id || mod.id || idx} className="glass" style={{ overflow: 'hidden' }}>
-                                    <div style={{ height: '200px' }}>
-                                        <img src={mod.src || (mod.images && mod.images[0]) || '/images/hero.jpeg'} alt={mod.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    </div>
-                                    <div style={{ padding: '1.5rem' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                            <span style={{ fontSize: '0.8rem', color: 'var(--accent)', textTransform: 'uppercase' }}>{mod.category}</span>
-                                            <span style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>${mod.cost}</span>
-                                        </div>
-                                        <h3 style={{ marginBottom: '1rem' }}>{mod.title}</h3>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                            <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'var(--accent)' }}></div>
-                                            <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{mod.user}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh' }}>
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                style={{ width: '40px', height: '40px', border: '3px solid var(--accent)', borderTopColor: 'transparent', borderRadius: '50%' }}
+                            />
                         </div>
+                    ) : (
+                        <motion.div 
+                            layout
+                            className="grid-mobile-stack" 
+                            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}
+                        >
+                            <AnimatePresence mode="popLayout">
+                                {mods.map((mod, idx) => (
+                                    <motion.div 
+                                        key={mod._id || mod.id || idx}
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                        whileHover={{ y: -10 }}
+                                        className="glass" 
+                                        style={{ overflow: 'hidden' }}
+                                    >
+                                        <div style={{ height: '200px', overflow: 'hidden' }}>
+                                            <motion.img 
+                                                whileHover={{ scale: 1.1 }}
+                                                transition={{ duration: 0.6 }}
+                                                src={mod.src || (mod.images && mod.images[0]) || '/images/hero.jpeg'} 
+                                                alt={mod.title} 
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                            />
+                                        </div>
+                                        <div style={{ padding: '1.5rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                                <span style={{ fontSize: '0.8rem', color: 'var(--accent)', textTransform: 'uppercase' }}>{mod.category}</span>
+                                                <span style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>${mod.cost}</span>
+                                            </div>
+                                            <h3 style={{ marginBottom: '1rem' }}>{mod.title}</h3>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'var(--accent)' }}></div>
+                                                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{mod.user}</span>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
                     )}
                 </div>
             </section>
